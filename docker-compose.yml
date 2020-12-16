@@ -1,0 +1,60 @@
+version: '3.7'
+services:
+    httpd:
+        build: httpd/.
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            TZ: America/Chicago
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.2
+    tomcat:
+        build: tomcat/.
+        expose:
+            - "8009"
+            - "8080"
+        volumes:
+            - dbsignlogs:/opt/dbsign/logs
+        environment:
+            TZ: America/Chicago
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.3
+    mysql:
+        build: mysql/.
+        expose:
+            - "3306"
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbsigndb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: Qwerty_123
+            MYSQL_DATABASE: dbsign
+            MYSQL_USER: dbsign
+            MYSQL_PASSWORD: Qwerty_123
+            TZ: America/Chicago
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.4
+    vnc:
+        build: vnc/.
+        ports:
+            - "5999:5901"
+        environment:
+            VNC_PASSWORD: Qwerty_123
+            TZ: America/Chicago
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.5
+volumes:
+    dbsigndb:
+    dbsignlogs:
+networks:
+    app_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: "10.0.0.0/24"
