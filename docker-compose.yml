@@ -39,16 +39,16 @@ services:
         networks:
             app_net:
                 ipv4_address: 10.0.0.4
-    vnc:
-        build: vnc/.
-        ports:
-            - "5999:5901"
-        environment:
-            VNC_PASSWORD: Qwerty_123
-            TZ: America/Chicago
-        networks:
-            app_net:
-                ipv4_address: 10.0.0.5
+    #vnc:
+    #    build: vnc/.
+    #    ports:
+    #        - "5999:5901"
+    #    environment:
+    #        VNC_PASSWORD: Qwerty_123
+    #        TZ: America/Chicago
+    #    networks:
+    #        app_net:
+    #            ipv4_address: 10.0.0.5
 volumes:
     dbsigndb:
     dbsignlogs:
