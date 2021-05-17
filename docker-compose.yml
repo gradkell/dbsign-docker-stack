@@ -5,6 +5,8 @@ services:
         ports:
             - "80:80"
             - "443:443"
+        volumes:
+            - ssl:/usr/local/apache2/conf/ssl
         environment:
             TZ: America/Chicago
         networks:
@@ -63,6 +65,12 @@ volumes:
             type: 'none'
             o: 'bind'
             device: '$PWD/volumes/dbsign'
+    ssl:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '$PWD/volumes/ssl'
 networks:
     app_net:
         ipam:
