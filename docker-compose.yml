@@ -16,7 +16,7 @@ services:
             - "8009"
             - "8080"
         volumes:
-            - dbsignlogs:/opt/dbsign/logs
+            - dbsign:/opt/dbsign
         environment:
             TZ: America/Chicago
         networks:
@@ -29,7 +29,7 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - dbsigndb:/var/lib/mysql
+            - database:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: Qwerty_123
             MYSQL_DATABASE: dbsign
@@ -39,6 +39,7 @@ services:
         networks:
             app_net:
                 ipv4_address: 10.0.0.4
+    #The following was an attempt to create an isolated GUI container for running the DBsign Admin Tools
     #vnc:
     #    build: vnc/.
     #    ports:
@@ -50,8 +51,18 @@ services:
     #        app_net:
     #            ipv4_address: 10.0.0.5
 volumes:
-    dbsigndb:
-    dbsignlogs:
+    database:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '$PWD/volumes/database'
+    dbsign:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '$PWD/volumes/dbsign'
 networks:
     app_net:
         ipam:

@@ -8,9 +8,9 @@ RUN sed -i 's/^#\(Include .*httpd-ssl.conf\)/\1/' /usr/local/apache2/conf/httpd.
 RUN mkdir /usr/local/apache2/conf/pki
 COPY ./config/proxy-ajp.conf /usr/local/apache2/conf/extra/proxy-ajp.conf
 COPY ./config/ssl.conf /usr/local/apache2/conf/extra/httpd-ssl.conf
-COPY ./pki/server.crt /usr/local/apache2/conf/pki/server.crt
-COPY ./pki/server.key /usr/local/apache2/conf/pki/server.key
-COPY ./pki/chain.crt /usr/local/apache2/conf/pki/chain.crt
+COPY ./ssl/pki/server.crt /usr/local/apache2/conf/pki/server.crt
+COPY ./ssl/pki/server.key /usr/local/apache2/conf/pki/server.key
+COPY ./ssl/pki/chain.crt /usr/local/apache2/conf/pki/chain.crt
 RUN echo 'Include conf/extra/proxy-ajp.conf' >> /usr/local/apache2/conf/httpd.conf
 RUN apt-get update
 RUN apt-get install wget -y
