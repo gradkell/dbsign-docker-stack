@@ -1,4 +1,4 @@
-FROM tomcat:9.0-jdk16-openjdk
+FROM tomcat:9.0-jdk17-openjdk
 
 COPY ./dbsign/files/HTML/Server/dbsign.war /usr/local/tomcat/webapps/dbsign.war
 COPY ./config/server.xml /usr/local/tomcat/conf/server.xml
